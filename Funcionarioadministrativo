@@ -1,0 +1,38 @@
+
+public class FuncionarioAdministrativo extends Funcionario {
+
+    private double percentualProdutividade;
+
+    public FuncionarioAdministrativo(String nome, String cpf, int matricula,
+                                     double salarioBase, double percentualProdutividade) {
+        super(nome, cpf, matricula, salarioBase);
+        setPercentualProdutividade(percentualProdutividade);
+    }
+
+    public FuncionarioAdministrativo(String nome, String cpf, int matricula, double salarioBase) {
+        this(nome, cpf, matricula, salarioBase, 0.0);
+    }
+
+    public double getPercentualProdutividade() { return percentualProdutividade; }
+
+    public void setPercentualProdutividade(double percentualProdutividade) {
+        if (percentualProdutividade < 0) {
+            throw new IllegalArgumentException("Percentual não pode ser negativo.");
+        }
+        this.percentualProdutividade = percentualProdutividade;
+    }
+
+    @Override
+    public double calcularRemuneracao() {
+        double adicional = getSalarioBase() * percentualProdutividade / 100;
+        return getSalarioBase() + adicional;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("=== FUNCIONÁRIO ADMINISTRATIVO ===");
+        super.exibirInformacoes();
+        System.out.printf("Produtividade: %.1f%%%n", percentualProdutividade);
+        System.out.printf("Remuneração:  R$ %.2f%n", calcularRemuneracao());
+    }
+}
