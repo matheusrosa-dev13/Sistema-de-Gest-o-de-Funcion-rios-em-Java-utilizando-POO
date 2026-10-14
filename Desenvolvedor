@@ -1,0 +1,48 @@
+
+public class Desenvolvedor extends Funcionario {
+
+    private NivelExperiencia nivel;
+    private String linguagemPrincipal;
+
+    public Desenvolvedor(String nome, String cpf, int matricula, double salarioBase,
+                         NivelExperiencia nivel, String linguagemPrincipal) {
+        super(nome, cpf, matricula, salarioBase);
+        setNivel(nivel);
+        setLinguagemPrincipal(linguagemPrincipal);
+    }
+
+    public Desenvolvedor(String nome, String cpf, int matricula, double salarioBase) {
+        this(nome, cpf, matricula, salarioBase, NivelExperiencia.JUNIOR, "Java");
+    }
+
+    public NivelExperiencia getNivel() { return nivel; }
+
+    public void setNivel(NivelExperiencia nivel) {
+        if (nivel == null) {
+            throw new IllegalArgumentException("Nível de experiência é obrigatório.");
+        }
+        this.nivel = nivel;
+    }
+
+    public String getLinguagemPrincipal() { return linguagemPrincipal; }
+
+    public void setLinguagemPrincipal(String linguagemPrincipal) {
+        this.linguagemPrincipal = (linguagemPrincipal == null || linguagemPrincipal.isBlank())
+                ? "Não informada" : linguagemPrincipal;
+    }
+
+    @Override
+    public double calcularRemuneracao() {
+        double adicional = getSalarioBase() * nivel.getPercentualAdicional() / 100;
+        return getSalarioBase() + adicional;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("=== DESENVOLVEDOR DE SOFTWARE ===");
+        super.exibirInformacoes();
+        System.out.println("Nível:        " + nivel);
+        System.out.println("Linguagem:    " + linguagemPrincipal);
+        System.out.printf("Remuneração:  R$ %.2f%n", calcularRemuneracao());
+    }
+}
