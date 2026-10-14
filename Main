@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Funcionario f1 = new FuncionarioAdministrativo("Ana Souza", "123.456.789-00", 1001, 3000.00, 15);
+        Funcionario f2 = new Desenvolvedor("Carlos Lima", "987.654.321-00", 1002, 5000.00,
+                NivelExperiencia.SENIOR, "Java");
+        Funcionario f3 = new Desenvolvedor("Beatriz Rocha", "111.222.333-44", 1003, 4000.00); // construtor sobrecarregado
+        Funcionario f4 = new FuncionarioAdministrativo("João Alves", "555.666.777-88", 1004, 2800.00);
+
+        List<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios.add(f1);
+        funcionarios.add(f2);
+        funcionarios.add(f3);
+        funcionarios.add(f4);
+
+        double totalFolha = 0;
+        for (Funcionario f : funcionarios) {
+            f.exibirInformacoes();
+            totalFolha += f.calcularRemuneracao();
+            System.out.println();
+        }
+        System.out.printf("Total da folha de pagamento: R$ %.2f%n%n", totalFolha);
+
+        System.out.printf("%s com bônus de R$ 500,00: R$ %.2f%n",
+                f2.getNome(), f2.calcularRemuneracao(500));
+
+        if (f3 instanceof Desenvolvedor dev) {
+            dev.setNivel(NivelExperiencia.PLENO);
+            System.out.printf("%s promovida a %s: R$ %.2f%n",
+                    dev.getNome(), dev.getNivel(), dev.calcularRemuneracao());
+        }
+        
+        try {
+            f1.setSalarioBase(-100);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro capturado: " + e.getMessage());
+        }
+    }
+}
