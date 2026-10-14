@@ -1,0 +1,13 @@
+public enum NivelExperiencia {
+    JUNIOR(10),
+    PLENO(25),
+    SENIOR(50);
+
+    private final double percentualAdicional;
+
+    NivelExperiencia(double percentualAdicional) {
+        this.percentualAdicional = percentualAdicional;
+    }
+
+    public double getPercentualAdicional() { return percentualAdicional; }
+}
